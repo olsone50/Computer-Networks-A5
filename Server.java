@@ -24,7 +24,7 @@ public class Server
                   int rcvPortNum, 
                   int peerRcvPortNum) throws Exception
     {
-        // To be completed
+    	 rdt = new RDT(ipAddress, rcvPortNum, peerRcvPortNum, "S");
     }// constructor
 
     /**
@@ -87,7 +87,7 @@ public class Server
     // sends to the client, the name of the image file given as parameter
     private void sendFileName(String inFileName)
     {
-        // To be completed
+        rdt.sendData(new byte[] {A5.MSG_FILE_NAME /*, inFileName.getBytes()*/});
     }// sendFileName
 
     // sends to the client the chunk(s) of the file to be read from the given

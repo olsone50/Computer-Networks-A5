@@ -36,7 +36,7 @@ public class Client
                   int rcvPortNum,
                   int peerRcvPortNum) throws Exception
     {
-        // To be completed
+        rdt = new RDT(ipAddress, rcvPortNum, peerRcvPortNum, "C");
     }// constructor
 
     /**
@@ -104,7 +104,7 @@ public class Client
      */
     private void sendFileRequest()
     {
-        // To be completed
+        rdt.sendData(new byte[] {A5.MSG_REQUEST_IMG_FILE});
     }// sendFileRequest
 
     /**
@@ -114,9 +114,12 @@ public class Client
      */    
     private boolean getFileName()
     {
-        // To be completed
-        
-        return true;  // only to satisfy the compiler
+        byte[] b = rdt.receiveData();
+        if (b[0] == A5.MSG_FILE_NAME) {
+        	fileName = b.toString();
+        	return true;
+        }
+        return false;  
     }// getFileName
 
 }// Client
