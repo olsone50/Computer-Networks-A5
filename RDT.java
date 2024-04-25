@@ -7,11 +7,10 @@
  *          Sender (inner class)
  *          Receiver (inner class)
  *
- * FIRST STUDENT'S FULL NAME GOES HERE
+ * Ethan Lenz
  *
- * 2nd STUDENT'S FULL NAME GOES HERE
+ * Evan Olson
  *
- * 3rd STUDENT'S FULL NAME GOES HERE (DELETE THIS LINE IF NOT NEEDED)
  
  *****************************************************************************/
 
