@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.Arrays;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -116,7 +118,8 @@ public class Client
     {
         byte[] b = rdt.receiveData();
         if (b[0] == A5.MSG_FILE_NAME) {
-        	fileName = b.toString();
+        	byte[] copy = Arrays.copyOfRange(b, 1, b.length);
+        	fileName = copy.toString();
         	return true;
         }
         return false;  

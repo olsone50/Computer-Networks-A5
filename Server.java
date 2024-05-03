@@ -87,7 +87,13 @@ public class Server
     // sends to the client, the name of the image file given as parameter
     private void sendFileName(String inFileName)
     {
-        rdt.sendData(new byte[] {A5.MSG_FILE_NAME /*, inFileName.getBytes()*/});
+    	byte[] data = inFileName.getBytes();
+    	byte[] updated = new byte[data.length + 1];
+    	updated[0] = A5.MSG_FILE_NAME;
+    	for (int i = 1; i < data.length; i++) {
+    		updated[i] = data[i-1];
+    	}
+        rdt.sendData(updated);
     }// sendFileName
 
     // sends to the client the chunk(s) of the file to be read from the given
