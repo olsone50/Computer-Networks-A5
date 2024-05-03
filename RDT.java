@@ -16,6 +16,7 @@
 
 import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.util.Arrays;
 
 /**  
  * Reliable Data Transfer potocol implemented on top of MyDatagramSocket.
@@ -74,7 +75,12 @@ public class RDT
      */
     public void sendData(byte[] data)
     {
-        // To be completed
+        while (true) {
+        	if (dataToSend.length == 0) {
+        		break;
+        	}
+        }
+        dataToSend = Arrays.copyOfRange(data, 0, data.length);
         
     }// sendData
 
@@ -84,9 +90,13 @@ public class RDT
      */
     public byte[] receiveData()
     {
-        // To be completed
-        
-        return null; // only here to satisfy the compiler
+        while (true) {
+        	if (dataReceived.length != 0) {
+        		break;
+        	}
+        }
+        byte[] data = Arrays.copyOfRange(dataReceived, 0, dataReceived.length);
+        return data; 
     }// receiveData
 
     /**
@@ -95,9 +105,11 @@ public class RDT
      */
     private byte checkSum(byte[] array, int n)
     {
-        // To be completed
-        
-        return 0; // only here to satisfy the compiler
+        byte checkSum = 0;
+        for (int i = 0; i < n; i++) {
+        	checkSum += array[i];
+        }
+        return checkSum;
     }// checkSum
 
     /***********************************************************************

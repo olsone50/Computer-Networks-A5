@@ -25,6 +25,7 @@ public class Server
                   int peerRcvPortNum) throws Exception
     {
     	 rdt = new RDT(ipAddress, rcvPortNum, peerRcvPortNum, "S");
+    	 run();
     }// constructor
 
     /**
@@ -38,7 +39,12 @@ public class Server
      */
     public void run() throws Exception
     {
-        // To be completed
+    	A5.print("S", "SERVER started");
+        getRequest();
+        
+    	A5.print("S", "SERVER done");
+        try { Thread.sleep(2000); } catch (Exception e) { }
+    	A5.print("S", "SERVER shutting down");
     }// run
 
     // Do not modify this method
@@ -94,6 +100,7 @@ public class Server
     		updated[i] = data[i-1];
     	}
         rdt.sendData(updated);
+    	A5.print("S", "SERVER sent file name \"" + inFileName + "\"");
     }// sendFileName
 
     // sends to the client the chunk(s) of the file to be read from the given
@@ -101,6 +108,7 @@ public class Server
     private void sendFile(FileInputStream in) throws Exception
     {
         // To be completed
+    	
     }// sendFile
 
     // waits for the file request from the client.
@@ -109,7 +117,14 @@ public class Server
     // received
     private void getRequest()
     {
-        // To be completed
+    	boolean waiting = true;
+    	A5.print("S", "SERVER looping in getRequest");
+        while (waiting) {
+        	if (rdt.receiveData()[0] == A5.MSG_REQUEST_IMG_FILE) {
+            	A5.print("S", "SERVER got request for image file");
+        		waiting = false;
+        	}
+        }
     }// getRequest
 
 }// Server

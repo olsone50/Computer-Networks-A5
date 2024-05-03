@@ -39,6 +39,7 @@ public class Client
                   int peerRcvPortNum) throws Exception
     {
         rdt = new RDT(ipAddress, rcvPortNum, peerRcvPortNum, "C");
+        run();
     }// constructor
 
     /**
@@ -56,7 +57,16 @@ public class Client
      */
     public void run() throws Exception
     {
-        // To be completed
+    	A5.print("C", "CLIENT started");
+    	sendFileRequest();
+    	if (getFileName()) {
+    		
+        	//displayImage();
+        	try { Thread.sleep(2000); } catch (Exception e) { }
+        	frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+    	}
+    	A5.print("C", "CLIENT done");
+    	A5.print("C", "CLIENT shutting down");
     }// run
 
     // Do not modify this method
@@ -106,6 +116,7 @@ public class Client
      */
     private void sendFileRequest()
     {
+    	A5.print("C", "CLIENT sent file request");
         rdt.sendData(new byte[] {A5.MSG_REQUEST_IMG_FILE});
     }// sendFileRequest
 
@@ -120,6 +131,7 @@ public class Client
         if (b[0] == A5.MSG_FILE_NAME) {
         	byte[] copy = Arrays.copyOfRange(b, 1, b.length);
         	fileName = copy.toString();
+        	A5.print("C", "CLIENT got file name: " + fileName);
         	return true;
         }
         return false;  
