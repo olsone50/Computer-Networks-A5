@@ -60,12 +60,19 @@ public class Client
     	A5.print("C", "CLIENT started");
     	sendFileRequest();
     	if (getFileName()) {
+    		out = new ByteArrayOutputStream();
+    		while (true) {
+    			break;
+    		}
     		
         	//displayImage();
+    		A5.print("C", "CLIENT done");
         	try { Thread.sleep(2000); } catch (Exception e) { }
         	frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     	}
-    	A5.print("C", "CLIENT done");
+    	else {
+    		A5.print("C", "CLIENT done");
+    	}
     	A5.print("C", "CLIENT shutting down");
     }// run
 

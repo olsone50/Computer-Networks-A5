@@ -76,10 +76,11 @@ public class RDT
     public void sendData(byte[] data)
     {
         while (true) {
-        	if (dataToSend.length == 0) {
+        	if (!dataWaitingToBeSent) {
         		break;
         	}
         }
+        dataWaitingToBeSent = true;
         dataToSend = Arrays.copyOfRange(data, 0, data.length);
         
     }// sendData
@@ -91,10 +92,11 @@ public class RDT
     public byte[] receiveData()
     {
         while (true) {
-        	if (dataReceived.length != 0) {
+        	if (dataWasReceivedFromBelow) {
         		break;
         	}
         }
+        dataWasReceivedFromBelow = false;
         byte[] data = Arrays.copyOfRange(dataReceived, 0, dataReceived.length);
         return data; 
     }// receiveData
@@ -109,7 +111,7 @@ public class RDT
         for (int i = 0; i < n; i++) {
         	checkSum += array[i];
         }
-        return checkSum;
+        return (byte) ~checkSum;
     }// checkSum
 
     /***********************************************************************

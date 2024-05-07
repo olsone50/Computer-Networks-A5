@@ -41,7 +41,14 @@ public class Server
     {
     	A5.print("S", "SERVER started");
         getRequest();
-        
+        String fileName = getRandomImageFile();
+        if (fileName != null) {
+        	 sendFileName(fileName);
+             sendFile(new FileInputStream(fileName));
+        }
+        else {
+        	rdt.sendData(new byte[] {A5.MSG_NO_IMG_FILE_AVAILABLE});
+        }
     	A5.print("S", "SERVER done");
         try { Thread.sleep(2000); } catch (Exception e) { }
     	A5.print("S", "SERVER shutting down");
