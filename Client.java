@@ -62,6 +62,7 @@ public class Client
     	if (getFileName()) {
     		out = new ByteArrayOutputStream();
     		while (true) {
+    			//loop on file chunks
     			break;
     		}
     		

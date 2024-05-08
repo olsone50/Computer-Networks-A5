@@ -81,7 +81,7 @@ public class RDT
         	}
         }
         dataWaitingToBeSent = true;
-        dataToSend = Arrays.copyOfRange(data, 0, data.length);
+        dataToSend = data;
         
     }// sendData
 
@@ -97,7 +97,7 @@ public class RDT
         	}
         }
         dataWasReceivedFromBelow = false;
-        byte[] data = Arrays.copyOfRange(dataReceived, 0, dataReceived.length);
+        byte[] data = dataReceived;
         return data; 
     }// receiveData
 
@@ -109,9 +109,9 @@ public class RDT
     {
         byte checkSum = 0;
         for (int i = 0; i < n; i++) {
-        	checkSum += array[i];
+        	checkSum ^= array[i];
         }
-        return (byte) ~checkSum;
+        return checkSum;
     }// checkSum
 
     /***********************************************************************
@@ -154,9 +154,15 @@ public class RDT
          */
         private boolean dataOK()
         {
-            // To be completed
-
-            return true; // only here to satisfy the compiler       
+            if (checkSum(rcvData, rcvData.length) != 0) {
+            	A5.print(tag, "RECEIVER checksum error on packet " + expectedSeqNum);
+            	return false;
+            }
+            else if (rcvData[0] != expectedSeqNum) {
+            	A5.print(tag, "RECEIVER wrong sequence number, expected: " + expectedSeqNum);
+            	return false;
+            }
+            return true;      
         }// dataOK
 
         /**
@@ -211,9 +217,15 @@ public class RDT
          */
         private boolean ackPacketOK()
         {
-            // To be completed
-
-            return true; // only here to satisfy the compiler
+        	if (checkSum(rcvData, rcvData.length) != 0) {
+            	A5.print(tag, "SENDER bad ACK checksum: " + curSeqNum);
+            	return false;
+            }
+            else if (rcvData[0] != curSeqNum) {
+            	A5.print(tag, "SENDER bad ACK seq num; expected: " + curSeqNum);
+            	return false;
+            }
+            return true;
         }// ackPacketOK
 
         /**
